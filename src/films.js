@@ -40,9 +40,11 @@ function orderAlphabetically(array) {
 // Exercise 5: Order by year, ascending
 function orderByYear(array) {
   let fullMovs = array.map(e => ({ ...e }));
-
-	let result = fullMovs.sort((a, b) => {return a.year - b.year;});
-
+  let sorted =  fullMovs.map(item => item).sort((a,b) => (a.title > b.title)? 1 : (b.title > a.title) ? -1 :0);
+	let result = sorted.sort((a, b) => {
+    return a.year - b.year;});
+   
+   
 	console.log('EXERCICE 5 ->', result);
   return result;
 
@@ -51,10 +53,14 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
-let fullCategory = array.filter(mov => mov.genre.includes(genre));
+
+let fullCategory = array.filter(mov => mov.genre.includes(genre) && mov.score);
+
 
 let totalScore = 0;
-for (let x of fullCategory){totalScore += x.score;}
+for (let x of fullCategory){
+
+  totalScore += x.score;}
 let result = totalScore/fullCategory.length;
 
 console.log("EXERCICE 6 ->", result);
@@ -73,7 +79,7 @@ for (let x of fullMovs){
  let min = Number(time.match(/\d+(?=min)/g));
   //__________________________________________________ REGEX
  let totalTime = min +(h * 60);
- x.duration = totalTime + 'm';
+ x.duration = totalTime;
 
 }
 
@@ -87,8 +93,9 @@ return result;
 function bestFilmOfYear(array, year) {
 
 let yearMovs =  array.filter(mov => mov.year == year);
-let bestMov = yearMovs.sort((a, b) => {return b.score - a.score;});
-let result = bestMov[0];
+let bestMovs = yearMovs.sort((a, b) => {return b.score - a.score});
+let result = [bestMovs[0]];
+
 
 console.log("EXERCICE 8 ->", result);
 return result;
